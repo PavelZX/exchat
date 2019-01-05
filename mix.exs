@@ -3,8 +3,8 @@ defmodule Exchat.Mixfile do
 
   def project do
     [app: :exchat,
-     version: "0.3.1",
-     elixir: "~> 1.4",
+     version: "0.4.1",
+     elixir: "~> 1.7",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
@@ -36,18 +36,21 @@ defmodule Exchat.Mixfile do
   #
   # Type `mix help deps` for examples and options
   defp deps do
-    [{:phoenix, "~> 1.2.1"},
-     {:phoenix_ecto, "~> 3.2.1"},
-     {:phoenix_html, "~> 2.9"},
-     {:phoenix_live_reload, "~> 1.0.8", only: :dev},
-     {:phoenix_pubsub, "~> 1.0.1"},
-     {:postgrex, "~> 0.13.0"},
+    [{:phoenix, "~> 1.4"},
+     {:phoenix_html, "~> 2.13"},
+     {:phoenix_live_reload, "~> 1.2", only: :dev},
+     {:phoenix_pubsub, "~> 1.1.1"},
+     {:phoenix_ecto, ">= 3.2.0 and < 3.5.0"},
+     {:postgrex, ">= 0.0.0"},
      {:gettext, "~> 0.13.1"},
-     {:ecto, "~> 2.1.3"},
-     {:cowboy, "~> 1.0"},
-     {:comeonin, "~> 2.6.0"},
-     {:excoveralls, "~> 0.6.2", only: :test},
-     {:joken, "~> 1.4.1"}]
+     {:ecto, "~> 2.1"},
+     {:poison, ">= 0.0.0"},
+     {:cowboy, "~> 2.6.1"},
+     {:plug_cowboy, "~> 2.0.0"},
+     {:comeonin, "~> 4.1.1"},
+     {:bcrypt_elixir, "~> 1.1"},
+     {:excoveralls, "~> 0.10.3", only: :test},
+     {:joken, "~> 1.5.0"}]
   end
 
   defp preferred_cli_env do

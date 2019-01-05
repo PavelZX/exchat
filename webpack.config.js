@@ -1,60 +1,64 @@
-var path = require('path')
-var webpack = require('webpack')
+const path = require('path');
+const webpack = require('webpack');
 
-var config = {
-  entry: [
-    './client/js/app.js'
-  ],
-  output: {
-    path: './priv/static/js',
-    filename: 'app.js'
+function join(dest) { return path.resolve(__dirname, dest); }
+
+function web(dest) { return join('' + dest); }
+
+module.exports = {
+  mode: 'development',
+//  devtool: 'source-map',
+
+  entry: {
+    application: [
+      web('./client/js/app.js'),
+      web('./client/css/main.scss'),
+    ],
   },
+
+  output: {
+    path: path.resolve(__dirname, '.', 'priv', 'static', 'js'),
+    filename: 'app.js',
+    publicPath: path.resolve(__dirname, '.', 'priv', 'static'),
+  },
+
   module: {
-    loaders: [
-      {test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel',
-        query: {
-          cacheDirectory: true, presets: ['react', 'es2015', 'stage-2'],
-          plugins: ['transform-function-bind']
-        }
+    rules: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+        },
       },
-
-      {test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,   loader: 'url?&mimetype=application/font-woff'},
-      {test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,  loader: 'url?&mimetype=application/font-woff'},
-      {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,    loader: 'url?&mimetype=application/octet-stream'},
-      {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,    loader: 'file'},
-      {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,    loader: 'url?limit=10000&mimetype=image/svg+xml'},
-
-      {test: /\.scss$/, loader: 'style!css!sass'},
-      {test: /\.css$/, loader: 'style!css'}
+      {
+          test: /\.s?[ac]ss$/,
+          use: [{
+          loader: "style-loader" // creates style nodes from JS strings
+        }, {
+          loader: "css-loader" // translates CSS into CommonJS
+        }, {
+          loader: "sass-loader" // compiles Sass to CSS
+        }]
+      },
+      {
+        test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+        use: [{
+          loader: 'url-loader',
+          options: { limit: 100000 },
+        },
+        'image-webpack-loader',
+        ]
+      },
     ]
   },
 
   resolve: {
-    root: [
-      path.join(__dirname, '')
-    ],
-
-    extensions: ['', '.js', '.jsx', '.scss', '.css']
+    extensions: ['.js', '.jsx','.sass'],
+    modules: ['node_modules', path.join(__dirname, 'assets','js')],
+    alias: {
+      "phoenix": path.resolve(__dirname, "./deps/phoenix/priv/static/phoenix.js"),
+      "phoenix_html": path.resolve(__dirname, "./deps/phoenix_html/priv/static/phoenix_html.js")
+    }
   },
-
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
-    }),
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-      'window.jQuery': 'jquery'
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
-    }),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.DedupePlugin()
-  ]
-
-}
-
-module.exports = config
+};
