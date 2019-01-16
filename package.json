@@ -20,7 +20,7 @@
     "deploy": "node_modules/.bin/webpack -p",
     "watch": "node_modules/.bin/webpack --watch-stdin --progress --colors"
   },
-  "author": "PavelZ",
+  "author": "",
   "license": "ISC",
   "private": true,
   "engines": {
