@@ -1,7 +1,7 @@
 {
   "name": "exchat",
   "version": "0.0.1",
-  "description": "Image constructor for system of imitation of thinking.",
+  "description": "",
   "main": "index.js",
   "directories": {
     "test": "test"
