@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 import { Modal } from 'react-bootstrap'
 import Select from 'react-select'
 

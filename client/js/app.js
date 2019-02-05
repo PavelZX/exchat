@@ -1,25 +1,17 @@
-import React                      from 'react'
-import ReactDOM                   from 'react-dom'
-import { Provider }               from 'react-redux'
-import { Router, browserHistory } from 'react-router'
-import { syncHistoryWithStore }   from 'react-router-redux'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Provider }  from 'react-redux'
 
 import configureStore             from './store/configureStore'
-import App                        from './containers/App'
-import routes                     from './routes'
-
-import 'react-select/dist/react-select.css'
-import '../css/main'
-import '../vendor/fontello/fontello.css'
+import Routes from './routes'
 
 const store = configureStore()
-const history = syncHistoryWithStore(browserHistory, store)
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Router history={history}>
-      { routes }
-    </Router>
-  </Provider>,
-  document.getElementById('client_root')
+
+    <Provider store={store}>
+      <Routes />
+    </Provider>,
+
+document.getElementById('client_root')
 )

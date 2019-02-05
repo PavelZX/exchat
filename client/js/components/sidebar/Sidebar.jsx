@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import { PropTypes }          from 'prop-types';
 
 import Settings from './_Settings'
 import Channels from './_Channels'
@@ -10,11 +11,11 @@ class Sidebar extends Component {
     let items = channels.ids.map(id => channels.items[id])
     return (
       <div>
-        <Settings dispatch={dispatch}></Settings>
+        <Settings dispatch={dispatch}/>
         <div className="sidebar-main">
           <Channels {...this.props}></Channels>
           <br/>
-          <DirectChannels {...this.props}></DirectChannels>
+          <DirectChannels {...this.props}/>
         </div>
       </div>
     )

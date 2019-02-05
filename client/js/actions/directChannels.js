@@ -1,4 +1,4 @@
-import { browserHistory } from 'react-router'
+import history from '../history'
 import { decamelizeKeys } from 'humps'
 
 import * as types from '../constants/ActionTypes'
@@ -36,7 +36,7 @@ export function joinDirectChannel(userId, users) {
       successCallback: function(channel, store) {
         let channelName = users[channel.userId].username
         initChannel(channel, store.dispatch, ()=> {
-          browserHistory.push(`/channels/@${channelName}`)
+          history.push(`/channels/@${channelName}`)
           store.dispatch(changeChannel(channelName))
         })
       }

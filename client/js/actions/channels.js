@@ -1,4 +1,4 @@
-import { browserHistory } from 'react-router'
+import history from '../history'
 import { camelizeKeys } from 'humps'
 
 import * as types from '../constants/ActionTypes'
@@ -39,7 +39,7 @@ export function createChannel(name) {
       schema: Schemas.channel,
       successCallback: function(response, store) {
         initChannel(response.entities.channels[response.result], store.dispatch, ()=> {
-          browserHistory.push(`/channels/${name}`)
+          history.push(`/channels/${name}`)
           // NOTE: now route change doesn't change props in componentWillReceiveProps of Channel
           // If it works, it's not necessary to call this here
           store.dispatch(changeChannel(name))
@@ -163,7 +163,7 @@ export function joinChannel(channel) {
       method: POST,
       data: {channelId: channel.id},
       successCallback: function(_response, store) {
-        browserHistory.push(`/channels/${channel.name}`)
+        history.push(`/channels/${channel.name}`)
         store.dispatch(changeChannel(channel.name))
       }
     }

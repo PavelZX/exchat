@@ -1,4 +1,4 @@
-import { browserHistory } from 'react-router'
+import history from '../history'
 
 import * as types from '../constants/ActionTypes'
 import { API_CALL, POST, GET } from '../constants/ApiTypes'
@@ -17,7 +17,7 @@ export function signIn(email, password) {
       skipAuth: true,
       successCallback: (response, store) => {
         Auth.login(response)
-        browserHistory.replace('/')
+        history.replace('/')
       }
     }
   }
@@ -35,7 +35,7 @@ export function signUp(email, password) {
       skipAuth: true,
       successCallback: (response, store) => {
         Auth.login(response)
-        browserHistory.replace('/')
+        history.replace('/')
       }
     }
   }
@@ -44,6 +44,6 @@ export function signUp(email, password) {
 export function signOut() {
   return (dispatch, getState) => {
     Auth.logout()
-    browserHistory.replace('/login')
+    history.replace('/login')
   }
 }
