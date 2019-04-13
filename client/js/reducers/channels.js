@@ -103,7 +103,7 @@ export default function channels(state = initialState, action) {
       var payload = action.payload
       let ts = payload.ts
       let channelId = payload.channelId
-      let msgIds = state.msgIdsById[channelId] || []
+      var msgIds = state.msgIdsById[channelId] || []
       return {
         ...state,
         msgIdsById: {
